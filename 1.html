@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Дз 4</title>
+    <style>
+        .error {
+            border: 0.3rem solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="#">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name"><br>
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone"><br>
+        <label for="mail">E-mail:</label>
+        <input type="text" id="mail" name="mail"><br>
+        <input type="submit" id="button" value="Отправить">
+    </form>
+    <script>
+        /*Первое и второе задания*/
+        let text = `One: 'Hi Mary.' Two: 'Oh, hi.'
+One: 'How are you doing?'
+Two: 'I'm doing alright. How about you?'
+One: 'Not too bad. The weather is great isn't it?'
+Two: 'Yes. It's absolutely beautiful today.'
+One: 'I wish it was like this more frequently.'
+Two: 'Me too.'
+One: 'So where are you going now?'
+Two: 'I'm going to meet a friend of mine at the department store'
+One: 'Going to do a little shopping?'
+Two: 'Yeah, I have to buy some presents for my parents.'
+One: 'What's the occasion?'
+Two: 'It's their anniversary.'
+One: 'That's great. Well, you better get going. You don't want to be late.'
+Two: 'I'll see you next time.'
+One: 'Sure.' Bye.'`;
+        let textex1 = text.replace(/'/g, `"`);
+        let textex2 = textex1.replace(/([a-z]*)"([a-z]+)/g, `$1'$2`);
+        console.log(text);
+        console.log(textex1);
+        console.log(textex2);
+
+
+        /*Третье задание*/
+        const name = document.getElementById("name");
+        const phone = document.getElementById("phone");
+        const mail = document.getElementById("mail");
+        const form = document.querySelector(`form`);
+
+        form.addEventListener(`submit`, event => {
+            if (/^[a-zA-Z]+$/.test(name.value) === false) {
+                name.classList.add(`error`);
+                event.preventDefault();
+            }
+
+            if (/^([+])([0-9])([(])([0-9]{1,3})([)])([0-9]{1,3})-([0-9]{1,4})+$/.test(phone.value) === false) {
+                phone.classList.add(`error`);
+                event.preventDefault();
+            }
+
+            if (/^([a-z0-9_.-]+)@([a-z0-9_.-]+).([a-z.]{2,6})+$/
+                .test(mail.value) === false) {
+                mail.classList.add(`error`);
+                event.preventDefault();
+            }
+        });
+
+        form.addEventListener(`input`, event => {
+            if (event.target.value === ``) {
+                event.target.classList.add(`error`);
+            }
+            event.target.classList.remove(`error`);
+        });
+    </script>
+</body>
+
+</html>
